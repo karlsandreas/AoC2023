@@ -4,40 +4,39 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
 	"unicode"
 )
 
-func main() {
-	var lines []string
-	for i, arg := range os.Args {
-		if arg == "-f" {
-			var err error
-			lines, err = readFile2Lines(os.Args[i+1])
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
-		}
-	}
-	sum := 0
-	for _, l := range lines {
-		first, last, found := findFirstLastDigit(l)
-		if !found {
-			fmt.Println("No digit found in line", l)
-		}
-		twoDigit := first + last
-		x, err := strconv.Atoi(twoDigit)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		sum += x
-	}
+// func main() {
+// 	var lines []string
+// 	for i, arg := range os.Args {
+// 		if arg == "-f" {
+// 			var err error
+// 			lines, err = readFile2Lines(os.Args[i+1])
+// 			if err != nil {
+// 				fmt.Println(err)
+// 				return
+// 			}
+// 		}
+// 	}
+// 	sum := 0
+// 	for _, l := range lines {
+// 		first, last, found := findFirstLastDigit(l)
+// 		if !found {
+// 			fmt.Println("No digit found in line", l)
+// 		}
+// 		twoDigit := first + last
+// 		x, err := strconv.Atoi(twoDigit)
+// 		if err != nil {
+// 			fmt.Println(err)
+// 			return
+// 		}
+// 		sum += x
+// 	}
 
-	fmt.Println("The sum is:", sum)
+// 	fmt.Println("The sum is:", sum)
 
-}
+// }
 
 func readFile2Lines(fileName string) ([]string, error) {
 	var lines []string
