@@ -8,8 +8,6 @@ import (
 	"unicode"
 )
 
-
-
 func main() {
 	var lines []string
 	for i, arg := range os.Args {
@@ -28,7 +26,7 @@ func main() {
 		if !found {
 			fmt.Println("No digit found in line", l)
 		}
-		twoDigit := string(first) + string(last)
+		twoDigit := first + last
 		x, err := strconv.Atoi(twoDigit)
 		if err != nil {
 			fmt.Println(err)
@@ -63,24 +61,50 @@ func readFile2Lines(fileName string) ([]string, error) {
 	return lines, nil
 }
 
-func findFirstLastDigit(str string) (rune, rune, bool) {
-	var first rune
-	var last rune
+func findFirstLastDigit(str string) (string, string, bool) {
+	var first string
+	var last string
 
+	wordNumber := make(map[string]string)
 
+	wordNumber["zero"] = "0"
+	wordNumber["one"] = "1"
+	wordNumber["two"] = "2"
+	wordNumber["three"] = "3"
+	wordNumber["four"] = "4"
+	wordNumber["five"] = "5"
+	wordNumber["six"] = "6"
+	wordNumber["seven"] = "7"
+	wordNumber["eight"] = "8"
+	wordNumber["nine"] = "9"
 
 	fmt.Println("Input", str)
-	for _, char := range str {
-		if unicode.IsDigit(char) {
-			if first == 0 {
-				first = char
-			}
-			last = char
 
+	strLen := len(str)
+
+	for i, char := range str {
+		if unicode.IsDigit(char) {
+			if first == "" {
+				first = string(char)
+			}
+			last = string(char)
+
+		} else {
+			for key, value := range wordNumber {
+				keyLen := len(key)
+				if i+keyLen <= strLen {
+					if str[i:i+keyLen] == key {
+						if first == "" {
+							first = value
+						}
+						last = value
+					}
+				}
+			}
 		}
 	}
 
-	if first == 0 || last == 0 {
+	if first == "" || last == "" {
 		return first, last, false
 	}
 	fmt.Println("First", string(first))
