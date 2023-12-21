@@ -21,7 +21,7 @@ type game struct {
 	power   int
 }
 
-func main() {
+func d2() {
 	var lines []string
 	for i, arg := range os.Args {
 		if arg == "-f" {
